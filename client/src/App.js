@@ -1,18 +1,22 @@
 import './App.css';
+import Navbar from './Navbar';
+import Home from './Home';
 
 function App() {
   return (
     <div className="App">
+
       <div className='banner'> 
         <h1>Life<span>West</span></h1>
       </div>
-      <div className='nav'>
-        <a href='#'>Home</a>
-        <a href='#'>Register</a>
-        <a href='#'>Donor Lookup</a>
-        <a href='#'>Orders</a>
-        <a href='#'>Inventory</a>
-        
+
+      <div className='container'>
+
+        <Navbar />
+        <div className='content'>
+          <Home />
+        </div>
+
       </div>
     </div>
   );
