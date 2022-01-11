@@ -16,7 +16,7 @@ const Home = () => {
                     <h2>AB+</h2>
                 </div>
             </div>
-           
+    
             <div className="lower-row">
                 <div className="oneg">
                     <h2>O-</h2>

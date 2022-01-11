@@ -24,6 +24,11 @@
   color:#FAF9F6;
 }
 
+.banner a {
+  text-decoration: none;
+  color: black;
+}
+
 .nav {
   display: flex;
   flex-direction: column;
@@ -81,6 +86,13 @@
   border-width: 5px;
 }
 
+.upper-row div:hover, .lower-row div:hover {
+  border-color: black;
+  border-style: solid;
+  border-width: 5px;
+  background-color: whitesmoke;
+}
+
 .upper-row div {
   height: 200px;
   width: 200px;
@@ -95,6 +107,33 @@
   margin: 10px;
 }
 
+.register-donor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-donor input {
+  width: 300px;
+  height: 50px;
+  font-size: 20px;
+  padding-left: 10px;
+  margin: 5px;
+  outline-style: none;
+}
+
+.register-donor button {
+    width: 320px;
+    height: 50px;
+    margin-top: 15px;
+  } 
+
+.register-donor button:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+} 
 
 
 
