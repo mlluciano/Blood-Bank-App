@@ -4,7 +4,6 @@ import Home from './Home';
 import Register from './Register'
 import { Link } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { useState } from "react";
 import Axios from "axios";
 
 function App() {
