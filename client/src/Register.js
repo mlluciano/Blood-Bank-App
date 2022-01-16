@@ -6,6 +6,11 @@ const Register = () => {
   const [dob, setDob] = useState("");
   const [addr, setAddr] = useState("");
   const [type, setType] = useState("");
+  const inputName = document.getElementById("name")
+  const inputType = document.getElementById("type")
+  const inputSSN = document.getElementById("ssn")
+  const inputDOB = document.getElementById("dob")
+  const inputAddr = document.getElementById("addr")
 
   const addDonor = () => {
       Axios.post('http://localhost:3001/create', {
@@ -16,13 +21,16 @@ const Register = () => {
           type: type
       }).then( () => {
           console.log('Donor inserted')
-          setName("");
-          setSSN("");
-          setDob("");
-          setAddr("");
-          setType("");
+          inputName.value = "";
+          inputType.value = "";
+          inputSSN.value = "";
+          inputDOB.value = "";
+          inputAddr.value = "";
+          
       })
   }
+
+  
 
 
     return ( 
@@ -31,7 +39,7 @@ const Register = () => {
             <label>Name: </label>
             <input
              type='text'
-             
+             id="name"
              onChange = {(event) => {
                  setName(event.target.value)
              }}
@@ -40,6 +48,7 @@ const Register = () => {
             <label>Blood Type: </label>
             <input
              type='text'
+             id="type"
              onChange = {(event) => {
                  setType(event.target.value)
              }}
@@ -48,19 +57,25 @@ const Register = () => {
 
             <label>SSN: </label>
             <input 
-            type='text' onChange = {(event) => {
+            type='text' 
+            id="ssn"
+            onChange = {(event) => {
                 setSSN(event.target.value);
             }}></input>
 
             <label>Date of birth: </label>
             <input 
-            type='text' onChange = {(event) => {
+            type='text' 
+            id="dob"
+            onChange = {(event) => {
                 setDob(event.target.value)
             }}></input>
 
             <label>Address: </label>
             <input 
-            type='text' onChange = {(event) => {
+            type='text' 
+            id="addr"
+            onChange = {(event) => {
                 setAddr(event.target.value)
             }}></input>
 
