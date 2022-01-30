@@ -128,6 +128,10 @@
     width: 320px;
     height: 50px;
     margin-top: 15px;
+    color: white;
+    size: 10px;
+    font-size: 16px;
+    background-color: #006CFF;
   } 
 
 .register-donor button:hover {
@@ -153,3 +157,76 @@ html, body {
 body > * {
   flex-shrink: 0;
 }
+
+.lookup {
+  display: flex;
+  justify-content: center;
+  padding-left: 100px;
+  padding-right: 100px;
+  gap: 50px;
+}
+
+.lookup button {
+  height: 20px;
+  width: 80px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  color: white;
+  background-color: #006CFF;
+  border: none;
+  padding: none;
+}
+
+.lookup button:hover {
+  cursor: pointer;
+  background-color: #9F9F9F;
+  border-radius: 0%;
+}
+
+.donors-list {
+  display: flex;
+}
+
+.register-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 10px;
+  margin-top: 10px;
+  background-color: #006CFF;
+  color: white;
+  padding: 15px;
+  text-decoration: none;
+}
+
+.register-btn:hover, .delete-button:hover {
+  background-color: #9F9F9F;
+  cursor:pointer;
+}
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 40px;
+  margin-top: 10px;
+  background-color: red;
+  color: white;
+  padding: 15px;
+  border: none;
+  font-size: 15px;
+}
+
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+
+
+
+
+

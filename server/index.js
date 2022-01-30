@@ -35,6 +35,39 @@ app.post("/create", (req, res) => {
     );
 });
 
+app.post("/delete", (req, res) => {
+    const id = req.body.donorid;
+    const _id = id.donorid
+    console.log(_id)
+    db.query(
+        "DELETE FROM donors WHERE donorid = ?",[_id],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post("/search", (req, res) => {
+    const option = req.body.option;
+    const crit = req.body.crit;
+    const child = require('child_process').fork('search.js', [option, crit])
+    child.on('message', (m) => {
+        db.query(m, [crit], (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result)
+            }
+        })
+    })
+})
+
 
 
 

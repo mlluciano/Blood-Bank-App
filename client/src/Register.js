@@ -25,8 +25,7 @@ const Register = () => {
           inputType.value = "";
           inputSSN.value = "";
           inputDOB.value = "";
-          inputAddr.value = "";
-          
+          inputAddr.value = ""; 
       })
   }
 
@@ -80,7 +79,6 @@ const Register = () => {
             }}></input>
 
             <button onClick={addDonor}>Register</button>
-            
         </div>
         
         
