@@ -53,13 +53,19 @@ class Lookup extends React.Component {
            })
         }
 
-        const processDonation = (type) => {
+        const processDonation = (arr) => {
+            if (window.confirm("Are you sure you want to process this donation?")) {
+            const donorid = arr.donorid
+            const type = arr.bloodtype
+            console.log(donorid)
+            console.log(type)
             Axios.post('http://localhost:3001/donate', {
-                donorid: 99,
-                type: 'O+'
+                donorid: donorid,
+                type: type
            }).then((response) => {
-                console.log('success')
+                console.log(response)
            })
+        }
         }
 
         const showAll = () => {
@@ -71,7 +77,7 @@ class Lookup extends React.Component {
                 this.setState({
                     list: response.data
                 })
-                console.log(this.state.list)
+                
                 
            })
         }
@@ -156,7 +162,7 @@ class Lookup extends React.Component {
                     }}
                     />
                     <div className="buttons">
-                    <Link to="/register" className="register-btn">Register</Link>
+                    <button className="register-btn" onClick={()=>processDonation(this.state.select)}>Process</button>
                     <HandleSelect selected = {this.state.selected} id = {this.state.select}/>
                     </div>
                     

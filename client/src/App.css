@@ -191,18 +191,21 @@ body > * {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 10px;
+  width: 90px;
+  height: 40px;
   margin-top: 10px;
   background-color: #006CFF;
   color: white;
   padding: 15px;
   text-decoration: none;
+  border:none;
+  font-size: 15px;
 }
 
 .register-btn:hover, .delete-button:hover {
   background-color: #9F9F9F;
   cursor:pointer;
+  
 }
 
 .delete-button {
@@ -225,7 +228,10 @@ body > * {
   gap: 15px;
 }
 
-
+.opos, .apos, .bpos, .abpos, .oneg, .aneg, .bneg, .abneg {
+  display: flex;
+  flex-direction: column;
+}
 
 
 

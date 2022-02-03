@@ -11,8 +11,28 @@ const db = mysql.createConnection({
     host: "localhost",
     port: 3306,
     password: "password",
-    database: "lifewest"
+    database: "lifewest",
+    multipleStatements: true
   });
+
+
+app.post("/home", (req, res) => {
+    var sql = ("SELECT COUNT(*) FROM inventory WHERE type=?;SELECT COUNT(*) FROM inventory WHERE type=?;SELECT COUNT(*) FROM inventory WHERE type=?;SELECT COUNT(*) FROM inventory WHERE type=?;SELECT COUNT(*) FROM inventory WHERE type=?;SELECT COUNT(*) FROM inventory WHERE type=?;SELECT COUNT(*) FROM inventory WHERE type=?;SELECT COUNT(*) FROM inventory WHERE type=?")
+    
+    db.query(sql, [req.body.opos,req.body.apos,req.body.bpos,req.body.abpos,req.body.oneg,req.body.aneg,req.body.bneg,req.body.abneg], (err, result) => {
+        if (err) {
+            console.log(error)
+        }
+        else {
+            var resultArray = Object.values(JSON.parse(JSON.stringify(result)))
+            let responseArray=[]
+            for (let i=0; i<8; i++) {
+                responseArray[i] = resultArray[i][0]['COUNT(*)']
+            }
+            res.send(responseArray)
+        }
+    })
+})
 
 app.post("/create", (req, res) => {
     const name = req.body.name;
@@ -67,6 +87,73 @@ app.post("/search", (req, res) => {
         })
     })
 })
+
+app.post("/donate", (req, res) => {
+    const donorid = req.body.donorid;
+    const type = req.body.type;
+    db.query(
+        "INSERT INTO inventory (type,donorid) VALUES (?,?)",
+        [type,donorid],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send("Your shit inserted")
+            }
+        }
+    )
+
+})
+
+app.get("/inventory", (req, res) => {
+    db.query(
+        "SELECT * FROM inventory",
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result)
+            }
+        }
+    )
+})
+
+app.get("/orders", (req, res) => {
+    db.query(
+        "SELECT * FROM orders",
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result)
+            }
+        }
+    )
+})
+
+app.post("/fulfill", (req, res) => {
+    const idorders = req.body.idorders
+    const type = req.body.type
+    const quantity = req.body.quantity
+    db.query(
+        "INSERT INTO inventory (type,donorid) VALUES (?,?)",
+        [type,donorid],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send("Your shit inserted")
+            }
+        }
+    )
+
+})
+
+
 
 
 

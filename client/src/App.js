@@ -3,6 +3,8 @@ import Navbar from './Navbar';
 import Home from './Home';
 import Register from './Register'
 import Lookup from './Lookup'
+import Inventory from './Inventory';
+import Orders from './Orders';
 import { Link } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Axios from "axios";
@@ -28,6 +30,12 @@ function App() {
               </Route>
               <Route path='/lookup'>
                 <Lookup />
+              </Route>
+              <Route path='/inventory'>
+                <Inventory />
+              </Route>
+              <Route path='/orders'>
+                <Orders />
               </Route>
             </Switch>
           </div>
