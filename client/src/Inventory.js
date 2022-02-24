@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import  Axios  from "axios";
 const Inventory = () => {
@@ -14,6 +14,8 @@ const getInventory = () => {
         setInventory(response.data)
     })
 }
+
+useEffect(getInventory, [])
     return ( 
         <div>
             <h1>Inventory</h1>
@@ -23,7 +25,7 @@ const getInventory = () => {
                     rows = {inventory}
                     columns = {columns}
                     />
-                    <button onClick={getInventory}>Show all</button>
+                    
         </div>
         
         

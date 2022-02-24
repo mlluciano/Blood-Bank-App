@@ -4,6 +4,7 @@ import Axios from "axios";
 
 const Home = () => {
 
+//set states for each blood type
 const [opos,Setopos] = useState(0)
 const [apos,Setapos] = useState(0)
 const [bpos,Setbpos] = useState(0)
@@ -15,8 +16,8 @@ const [abneg,Setabneg] = useState(0)
 
 
 
-const setCounts = () => {
-    Axios.post('http://localhost:3001/home', {
+const setCounts = () => { //queries for inventory counts, then sets the state of each blood type
+    Axios.post('http://localhost:3001/home', { 
         opos: 'O+',
         apos: 'A+',
         bpos: 'B+',
@@ -37,7 +38,7 @@ const setCounts = () => {
         Setabneg(countArray[7])
     })
 }
-useEffect(setCounts, [])
+useEffect(setCounts, []) //setCounts will only run on page load
     
     return ( 
         
@@ -45,7 +46,7 @@ useEffect(setCounts, [])
             <div className="upper-row">
                 <div className="opos">
                     <h2>O+</h2>
-                    <h3>{opos}</h3>
+                    <h3>{opos}</h3> 
                 </div>
                 <div className="apos">
                     <h2>A+</h2>

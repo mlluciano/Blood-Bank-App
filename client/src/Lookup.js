@@ -18,11 +18,11 @@ const columns = [
 
 
 
-class Lookup extends React.Component {
-    constructor(props) {
+class Lookup extends React.Component { //I should have made this a functional component. 
+    constructor(props) { 
         super(props);
         
-        this.state = {
+        this.state = { 
             option: 'name',
             crit: '',
             list: [],
@@ -41,13 +41,12 @@ class Lookup extends React.Component {
         
         
         const searchDonor = () => {
-            console.log('option is : ' + this.state.option)
-            console.log('criteria is: ' + this.state.crit)
+            
+            //passes select option and input to the backend for DB query
            Axios.post('http://localhost:3001/search', {
                 option: this.state.option,
                 crit: this.state.crit
            }).then((response) => {
-                //console.log(response.data)
                 this.setState({list:response.data})
                 console.log(this.state.list)
            })
@@ -97,18 +96,26 @@ class Lookup extends React.Component {
             const selected = props.selected;
             const id = props.id;
             if (selected) {
-                return <button className="delete-button" onClick={() => deleteDonor(id)}>Delete</button>
+                return(
+                <div className="select-buttons">
+                    <button className="delete-button" onClick={() => deleteDonor(id)}>Delete</button>
+                    <button className="edit-button">Edit</button>
+                </div>)
+                
+                
             } else {
                 return <h1></h1>
             }
         }
 
         const deleteDonor = (id) => {
+            if (window.confirm("Are you sure you would like to delete this donor?")) {            
             Axios.post('http://localhost:3001/delete', {
                 donorid: id
            }).then((response) => {
                 showAll()
            })
+        }
         }
 
 
@@ -165,7 +172,6 @@ class Lookup extends React.Component {
                     <button className="register-btn" onClick={()=>processDonation(this.state.select)}>Process</button>
                     <HandleSelect selected = {this.state.selected} id = {this.state.select}/>
                     </div>
-                    
             </div>
         </div>
             

@@ -1,32 +1,50 @@
 import Axios from "axios";
 import { useState } from "react";
 const Register = () => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(""); //declare states to store each input
   const [ssn, setSSN] = useState("");
   const [dob, setDob] = useState("");
   const [addr, setAddr] = useState("");
   const [type, setType] = useState("");
-  const inputName = document.getElementById("name")
+  const inputName = document.getElementById("name") 
   const inputType = document.getElementById("type")
   const inputSSN = document.getElementById("ssn")
   const inputDOB = document.getElementById("dob")
   const inputAddr = document.getElementById("addr")
 
   const addDonor = () => {
-      Axios.post('http://localhost:3001/create', {
+      if (emptyCheck()) {
+          alert("One or more fields is blank!")
+          return
+      }
+      if (window.confirm("Please click ok to complete registering this donor.")) {
+      Axios.post('http://localhost:3001/create', { //passing states to the backend for insertion into the DB
           name: name,
           ssn: ssn,
           dob: dob,
           addr: addr,
           type: type
-      }).then( () => {
-          console.log('Donor inserted')
-          inputName.value = "";
+      }).then( () => { 
+          console.log('Donor inserted') 
+          inputName.value = ""; //this clears the input fields on submit
           inputType.value = "";
           inputSSN.value = "";
           inputDOB.value = "";
           inputAddr.value = ""; 
       })
+    }
+  }
+
+  const emptyCheck = () => {
+     let bool = false;
+     let arr = [name, type, ssn, addr, type]
+     for (let i=0; i<5; i++) {
+         if (arr[i]=='') {
+             console.log(arr[i])
+             bool = true
+         }
+     }
+     return bool
   }
 
   
@@ -39,8 +57,8 @@ const Register = () => {
             <input
              type='text'
              id="name"
-             onChange = {(event) => {
-                 setName(event.target.value)
+             onChange = {(event) => { //callback is triggered when there is a change in input
+                 setName(event.target.value) //value is captured in a state variable
              }}
              ></input>
 
@@ -78,7 +96,7 @@ const Register = () => {
                 setAddr(event.target.value)
             }}></input>
 
-            <button onClick={addDonor}>Register</button>
+            <button onClick={addDonor}>Register</button> 
         </div>
         
         

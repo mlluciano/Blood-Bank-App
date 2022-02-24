@@ -202,7 +202,7 @@ body > * {
   font-size: 15px;
 }
 
-.register-btn:hover, .delete-button:hover {
+.register-btn:hover, .delete-button:hover, .edit-button:hover {
   background-color: #9F9F9F;
   cursor:pointer;
   
@@ -222,8 +222,27 @@ body > * {
   font-size: 15px;
 }
 
+.edit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 40px;
+  margin-top: 10px;
+  background-color: green;
+  color: white;
+  padding: 15px;
+  border: none;
+  font-size: 15px;
+}
+
 
 .buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.select-buttons {
   display: flex;
   gap: 15px;
 }

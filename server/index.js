@@ -138,21 +138,55 @@ app.post("/fulfill", (req, res) => {
     const idorders = req.body.idorders
     const type = req.body.type
     const quantity = req.body.quantity
+
+    const fulfill = () => {
+        db.query(
+            "DELETE FROM inventory WHERE type = ? LIMIT ?",
+            [type, quantity],
+            (err, result) => {
+                if (err) {
+                    res.send(err)
+                }
+                else {
+                    res.send("Units successfully inserted")
+                }
+            }
+        ) 
+    }
+
+    const deleteOrder = () => {
+        db.query("DELETE from orders WHERE idorders = ?",
+        [idorders],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(idorders)
+                console.log(result)
+            }
+        })
+    }
     db.query(
-        "INSERT INTO inventory (type,donorid) VALUES (?,?)",
-        [type,donorid],
+        "SELECT COUNT(*) AS typeQuantity FROM inventory WHERE type = ? ",
+        [type],
         (err,result) => {
             if (err) {
                 console.log(err)
             }
+            if (quantity > result[0].typeQuantity) {
+                res.send("Sorry, not enough units in inventory.")
+                console.log(result)
+            }
             else {
-                res.send("Your shit inserted")
+                fulfill()
+                deleteOrder()
             }
         }
     )
 
 })
 
+//INSERT INTO inventory (type,donorid) VALUES (?,?)
 
 
 
