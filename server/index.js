@@ -6,6 +6,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
@@ -27,9 +28,9 @@ app.post("/home", (req, res) => {
             var resultArray = Object.values(JSON.parse(JSON.stringify(result)))
             let responseArray=[]
             for (let i=0; i<8; i++) {
-                responseArray[i] = resultArray[i][0]['COUNT(*)']
+                responseArray[i] = resultArray[i][0]['COUNT(*)'] //parsing  rowdatapacket to get the data I want. 
             }
-            res.send(responseArray)
+            res.send(responseArray) //this data will be used to display inventory counts on the home screen. 
         }
     })
 })
@@ -40,7 +41,6 @@ app.post("/create", (req, res) => {
     const dob = req.body.dob;
     const addr = req.body.addr;
     const type = req.body.type;
-
     db.query(
         "INSERT INTO donors (name, bloodtype, ssn, dob, addr) VALUES (?,?,?,?,?)",
         [name, type, ssn, dob, addr],
@@ -58,7 +58,6 @@ app.post("/create", (req, res) => {
 app.post("/delete", (req, res) => {
     const id = req.body.donorid;
     const _id = id.donorid
-    console.log(_id)
     db.query(
         "DELETE FROM donors WHERE donorid = ?",[_id],
         (err, result) => {
@@ -75,7 +74,7 @@ app.post("/delete", (req, res) => {
 app.post("/search", (req, res) => {
     const option = req.body.option;
     const crit = req.body.crit;
-    const child = require('child_process').fork('search.js', [option, crit])
+    const child = require('child_process').fork('search.js', [option, crit]) //child process is forking off, option and crit are passed to the command line
     child.on('message', (m) => {
         db.query(m, [crit], (err,result) => {
             if (err) {
@@ -99,7 +98,7 @@ app.post("/donate", (req, res) => {
                 console.log(err)
             }
             else {
-                res.send("Your shit inserted")
+                res.send("Donation has been processed.")
             }
         }
     )
@@ -131,6 +130,14 @@ app.get("/orders", (req, res) => {
                 res.send(result)
             }
         }
+    )
+})
+
+app.post("/edit", (req,res) => {
+    const donorid = req.body.donorid
+    const addr = req.body.addr
+    db.query("UPDATE donors SET addr = ? WHERE donorid = ?",
+    [addr,donorid]
     )
 })
 
@@ -185,12 +192,6 @@ app.post("/fulfill", (req, res) => {
     )
 
 })
-
-//INSERT INTO inventory (type,donorid) VALUES (?,?)
-
-
-
-
 
 app.listen(3001, () => {
     console.log("Server is running on port 3001");

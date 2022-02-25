@@ -8,7 +8,7 @@ import Orders from './Orders';
 import { Link } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Axios from "axios";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function App() {
   
 

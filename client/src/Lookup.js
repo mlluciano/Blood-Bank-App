@@ -12,7 +12,7 @@ const columns = [
     {field: 'name', headerName: 'Full name', width: 130, flex: 1},
     {field: 'dob', headerName: 'Date of birth', width: 130, flex: 1},
     {field: 'bloodtype', headerName: 'Blood type', width:90, flex: 1},
-    {field: 'addr', headerName: 'Address', width: 260, flex: 1},
+    {field: 'addr', headerName: 'Address', width: 260, flex: 1, editable:true},
     
 ]
 
@@ -38,10 +38,20 @@ class Lookup extends React.Component { //I should have made this a functional co
         
 
     render() {
+
+        const handleEdit = (GridCellEditCommitParams) => {
+            console.log(GridCellEditCommitParams.value)
+            Axios.post('http://localhost:3001/edit', {
+                donorid: GridCellEditCommitParams.id,
+                addr: GridCellEditCommitParams.value
+            }).then((response) => {
+
+            })
+
+        }
         
         
         const searchDonor = () => {
-            
             //passes select option and input to the backend for DB query
            Axios.post('http://localhost:3001/search', {
                 option: this.state.option,
@@ -63,6 +73,10 @@ class Lookup extends React.Component { //I should have made this a functional co
                 type: type
            }).then((response) => {
                 console.log(response)
+                if (response.status==200) {
+                    alert("Donation processed successfully")
+                }
+                
            })
         }
         }
@@ -97,10 +111,9 @@ class Lookup extends React.Component { //I should have made this a functional co
             const id = props.id;
             if (selected) {
                 return(
-                <div className="select-buttons">
+                
                     <button className="delete-button" onClick={() => deleteDonor(id)}>Delete</button>
-                    <button className="edit-button">Edit</button>
-                </div>)
+                )
                 
                 
             } else {
@@ -113,7 +126,11 @@ class Lookup extends React.Component { //I should have made this a functional co
             Axios.post('http://localhost:3001/delete', {
                 donorid: id
            }).then((response) => {
-                showAll()
+                if (response.status==200) {
+                    alert("Donor has successfully been deleted.")
+                    showAll()
+                }
+                
            })
         }
         }
@@ -167,6 +184,7 @@ class Lookup extends React.Component { //I should have made this a functional co
                     onRowDoubleClick={(GridRowParams) => {
                         this.setState({select: [], selected:false})
                     }}
+                    onCellEditCommit={handleEdit}
                     />
                     <div className="buttons">
                     <button className="register-btn" onClick={()=>processDonation(this.state.select)}>Process</button>
